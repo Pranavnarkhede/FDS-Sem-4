@@ -154,6 +154,27 @@ void operators (char a , stack<Node*> &st)
     st.pop();
     st.push(root);
 } 
+
+Node *constructPrefixExpressionTree(char *prefix)
+{
+    stack<Node *> st;
+    int length = strlen(prefix);
+
+
+        for (int i = length - 1; i >= 0; i--)
+    {
+        if (isalnum(prefix[i]))
+        {
+            operand(prefix[i], st);
+        }
+        else
+        {
+            operators(prefix[i], st);
+        }
+    }
+
+    return st.top();
+}
 int main() 
 {
     int i = 0;
@@ -197,5 +218,36 @@ int main()
     cout << "iterative postorder " << endl;
     iterativePostorder (st.top());
     cout << endl;
+	
+	 char *prefix = new char[20];
+    cout << "Enter prefix expression: ";
+    cin >> prefix;
+
+    Node *prefixRoot = constructPrefixExpressionTree(prefix);
+
+    cout << "Recursive Inorder (Prefix Expression Tree): " << endl;
+    recursiveInorder(prefixRoot);
+    cout << endl;
+
+    cout << "Iterative Inorder (Prefix Expression Tree): " << endl;
+    iterativeInorder(prefixRoot);
+    cout << endl;
+
+    cout << "Recursive Preorder (Prefix Expression Tree): " << endl;
+    recursivePreorder(prefixRoot);
+    cout << endl;
+
+    cout << "Iterative Preorder (Prefix Expression Tree): " << endl;
+    iterativePreorder(prefixRoot);
+    cout << endl;
+
+    cout << "Recursive Postorder (Prefix Expression Tree): " << endl;
+    recursivePostorder(prefixRoot);
+    cout << endl;
+
+    cout << "Iterative Postorder (Prefix Expression Tree): " << endl;
+    iterativePostorder(prefixRoot);
+    cout << endl;
+
     return 0;
 }
